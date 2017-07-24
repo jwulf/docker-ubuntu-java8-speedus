@@ -16,6 +16,18 @@ RUN apt-get update -y && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /var/cache/oracle-jdk8-installer
 
+# Install awscli and gosu
+RUN apt-get clean && apt-get update \
+&& apt-get -qqy install wget unzip make gcc \
+   nano build-essential \
+   libsdl2-dev libsdl2-ttf-dev libpango1.0-dev \
+   libgl1-mesa-dev libopenal-dev libsndfile-dev libmpg123-dev awscli \
+&& apt-get -qqy install ruby-dev \
+&& gem install gosu \
+&& rm -rf /var/lib/apt/lists/*
+
+RUN chmod +x /usr/bin/speedus
+
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
 ENV TERM=xterm
